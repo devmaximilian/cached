@@ -33,4 +33,4 @@ class Service {
 
 ## License
 
-Cached is released under the MIT license. [See LICENSE](https://github.com/devmaximilian/cached/blob/master/LICENSE) for details.
+Cached is released under the MIT license. See [LICENSE](https://github.com/devmaximilian/cached/blob/master/LICENSE) for details.
