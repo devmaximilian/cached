@@ -14,6 +14,23 @@ dependencies: [
 ]
 ```
 
+## Usage
+
+```swift
+struct Article: Codable {
+    let title: String
+    let description: String
+}
+
+class Service {
+    init() {}
+
+    @Cached(key: "articles", defaultValue: [], ttl: .minutes(30))
+    var articles: [Article]
+}
+```
+
+
 ## License
 
 Cached is released under the MIT license. [See LICENSE](https://github.com/devmaximilian/cached/blob/master/LICENSE) for details.
