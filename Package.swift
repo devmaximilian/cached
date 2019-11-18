@@ -9,13 +9,14 @@ let package = Package(
         .iOS(.v10),
         .macOS(.v10_12),
         .watchOS(.v2),
-        .tvOS(.v10)
+        .tvOS(.v10),
     ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "Cached",
-            targets: ["Cached"]),
+            targets: ["Cached"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -26,9 +27,11 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "Cached",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "CachedTests",
-            dependencies: ["Cached"]),
+            dependencies: ["Cached"]
+        ),
     ]
 )
