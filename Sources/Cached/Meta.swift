@@ -24,11 +24,22 @@
 
 import Foundation
 
+/// The cache-meta structure
 struct CacheMeta: Codable {
+    /// The cache's expiry date
     let expires: Date
-    let ttl: TimeInterval
-    let valueType: String // Used to warn for type conflicts
 
+    /// The cache's Time To Live
+    let ttl: TimeInterval
+
+    /// The value's type
+    /// - Note: Will be used to warn if two instances use the same cache-key and different value types
+    let valueType: String
+
+    /// Initializes a new `CacheMeta` instance
+    /// - Parameters:
+    ///   - ttl: The cache's Time To Live
+    ///   - value: The value to cache
     init(ttl: TimeInterval, value: Codable) {
         self.expires = ttl > 0 ? Date(timeIntervalSinceNow: ttl) : Date(timeIntervalSince1970: 0)
         self.ttl = ttl

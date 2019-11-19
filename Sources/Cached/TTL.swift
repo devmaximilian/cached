@@ -24,15 +24,30 @@
 
 import Foundation
 
+/// A helper to indicate the Time To Live for a given cache
 public enum TTL {
+    /// The cache does not expire
     case infinite
+
+    /// The cache is valid for a given number of seconds
     case seconds(Int)
+
+    /// The cache is valid for a number of given minutes
     case minutes(Int)
+
+    /// The cache is valid for a number of given hours
     case hours(Int)
+
+    /// The cache is valid for a number of given days
     case days(Int)
+
+    /// The cache is valid for a number of given weeks
     case weeks(Int)
+
+    /// The cache is valid for a number of given months
     case months(Int)
 
+    /// Transforms the `TTL` instance into an instance of `TimeInterval`
     public var interval: TimeInterval {
         switch self {
         case .infinite:

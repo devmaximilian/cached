@@ -25,26 +25,43 @@
 import Foundation
 import os
 
+/// The property wrapper used to indicate that a value should be cached
+///
+/// ```
+/// struct Article: Codable {
+///     let title: String
+///     let description: String
+/// }
+///
+/// class Service {
+///     init() {}
+///
+///     @Cached(key: "articles", defaultValue: [], ttl: .minutes(30))
+///     var articles: [Article]
+/// }
 @propertyWrapper
-struct Cached<T: Codable> {
-    let defaultValue: T
-    let ttl: TimeInterval
-    let key: String
-    let log: OSLog
+public struct Cached<T: Codable> {
+    private let defaultValue: T
+    private let ttl: TimeInterval
+    private let key: String
+    private let log: OSLog
 
-    init(key: String, defaultValue: T, ttl: TTL = .seconds(60)) {
+    /// Initializes a new `Cached` instance
+    /// - Parameters:
+    ///   - key: The cache-key to use
+    ///   - defaultValue: The default value for `T`
+    ///   - ttl: The cache's Time To Live
+    /// - Precondition: The cache-key **must be unique** for every instance of `Cached<_>`
+    public init(key: String, defaultValue: T, ttl: TTL = .seconds(60)) {
         self.key = key
         self.ttl = ttl.interval
         self.defaultValue = defaultValue
         self.log = OSLog(subsystem: "cached", category: "key-\(key)")
-
-        guard let value: T = Cache.shared.read(key: key) else {
-            return
-        }
-        print(value)
     }
 
-    var wrappedValue: T {
+    /// The wrapped value `T`
+    /// - Note: Updating the value will cause it to be updated
+    public var wrappedValue: T {
         get {
             os_log("Reading value for key %@", log: self.log, type: .info, self.key)
             return Cache.shared.read(key: self.key) ?? self.defaultValue
